@@ -13,7 +13,11 @@ const clearBtn = document.getElementById('clear-btn') // C
 
 
 function setNumberValue(number){
-   console.log(number);
+  //ดึงค่ามาจาก calculatorDisplay
+    const displayValue = calculatorDisplay.textContent;
+    // 0 => 7
+    // 5 => 57
+    calculatorDisplay.innerHTML = displayValue === '0' ? number : displayValue+number
 }
 
 function callOpearator(operator){
@@ -35,3 +39,13 @@ inputBtn.forEach(input=>{
     input.addEventListener('click',()=>addDecimal(input.value))
   }
 })
+
+
+
+
+clearBtn.addEventListener('click',()=>resetAll())
+
+
+function resetAll(){
+  calculatorDisplay.innerHTML = '0'
+}

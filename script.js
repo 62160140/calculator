@@ -14,7 +14,7 @@ const clearBtn = document.getElementById('clear-btn') // C
 
 function setNumberValue(number){
   //ดึงค่ามาจาก calculatorDisplay
-    const displayValue = calculatorDisplay.textContent;
+    const displayValue = calculatorDisplay.innerHTML;
     // 0 => 7
     // 5 => 57
     calculatorDisplay.innerHTML = displayValue === '0' ? number : displayValue+number
@@ -25,7 +25,11 @@ function callOpearator(operator){
 }
 
 function addDecimal(decimal){
-  console.log(decimal);
+  //กรองให้มี . ตัวเดียว
+  if(!calculatorDisplay.innerHTML.includes(".")){
+    calculatorDisplay.innerHTML = `${calculatorDisplay.innerHTML}.`
+  }
+  
 }
 
 //? กรองข้อมูลปุ่มที่กดเป็น operator หรือ operand

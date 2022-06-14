@@ -18,7 +18,13 @@ let firstValue = 0; //ตัวเลข 1
 let operatorValue = '' //ตัวดำเนินการ
 let waitForNext = false ;  //เอาไว้เช็คว่ามี firstValue และ ตัวดำเนินการและ operator ยัง
 
-
+const calculate ={
+  "/":(firstNumber,secondNumber)=>secondNumber!=0?firstNumber/secondNumber:"error",
+  "*":(firstNumber,secondNumber)=>firstNumber*secondNumber,
+  "+":(firstNumber,secondNumber)=>firstNumber+secondNumber,
+  "-":(firstNumber,secondNumber)=>firstNumber-secondNumber,
+  "=":(firstNumber,secondNumber)=>secondNumber
+}
 
 function setNumberValue(number){
   if(waitForNext){
@@ -44,15 +50,16 @@ function callOpearator(operator){
   if(!firstValue){
     firstValue =  currentValue; // ค่าเริ่มต้น
   }else{
-    console.log('firstValue',firstValue);
-    console.log('operatorValue',operatorValue);
-    console.log('currentValue',currentValue);
+    const result = calculate[operatorValue](firstValue,currentValue)
+    calculatorDisplay.textContent = result
+    firstValue = result
+    if(firstValue === "error"){
+      resetAll()
+    }
   }
+
   operatorValue = operator
   waitForNext = true;
-
-
-
 }
 
 function addDecimal(decimal){

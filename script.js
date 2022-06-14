@@ -11,6 +11,14 @@ const inputBtn = document.querySelectorAll('button') //array
 const clearBtn = document.getElementById('clear-btn') // C
 
 
+// ตัวเลขที่ 1 ตัวดำเนินการ ตัวเลขที่ 2
+// 10          +         20
+
+let firstValue = 0; //ตัวเลข 1
+let operatorValue = '' //ตัวดำเนินการ
+let waitForNext = false ;  //เอาไว้เช็คว่ามี firstValue และ ตัวดำเนินการและ operator ยัง
+
+
 
 function setNumberValue(number){
   //ดึงค่ามาจาก calculatorDisplay
@@ -21,7 +29,20 @@ function setNumberValue(number){
 }
 
 function callOpearator(operator){
-  console.log(operator);
+  //* case ป้อนตัวดำเนินการก่อนป้อนตัวเลข
+  const currentValue = Number(calculatorDisplay.textContent)
+  if(!firstValue){
+    firstValue =  currentValue; // ค่าเริ่มต้น
+  }else{
+    console.log('firstValue',firstValue);
+    console.log('operatorValue',operatorValue);
+    console.log('currentValue',currentValue);
+  }
+  operatorValue = operator
+  waitForNext = true;
+
+
+
 }
 
 function addDecimal(decimal){
@@ -52,4 +73,7 @@ clearBtn.addEventListener('click',()=>resetAll())
 
 function resetAll(){
   calculatorDisplay.innerHTML = '0'
+  waitForNext=false;
+  firstValue = 0;
+  
 }

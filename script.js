@@ -21,16 +21,26 @@ let waitForNext = false ;  //เอาไว้เช็คว่ามี first
 
 
 function setNumberValue(number){
-  //ดึงค่ามาจาก calculatorDisplay
+  if(waitForNext){
+    calculatorDisplay.textContent=number;
+    waitForNext=false;
+  }else{
+    //ดึงค่ามาจาก calculatorDisplay
     const displayValue = calculatorDisplay.innerHTML;
     // 0 => 7
     // 5 => 57
     calculatorDisplay.innerHTML = displayValue === '0' ? number : displayValue+number
+  }
+  
 }
 
 function callOpearator(operator){
   //* case ป้อนตัวดำเนินการก่อนป้อนตัวเลข
   const currentValue = Number(calculatorDisplay.textContent)
+  if(operatorValue && waitForNext){
+    operatorValue=operator;
+    return;
+  }
   if(!firstValue){
     firstValue =  currentValue; // ค่าเริ่มต้น
   }else{
@@ -46,6 +56,9 @@ function callOpearator(operator){
 }
 
 function addDecimal(decimal){
+  if(waitForNext) return;
+
+
   //กรองให้มี . ตัวเดียว
   if(!calculatorDisplay.innerHTML.includes(".")){
     calculatorDisplay.innerHTML = `${calculatorDisplay.innerHTML}.`
